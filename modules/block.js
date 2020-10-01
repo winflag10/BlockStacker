@@ -22,9 +22,9 @@ class Block{
 		this.cube = cube
 
 		if(this.axis == "x"){
-			this.cube.position.set(-8,1,0)
+			this.cube.position.set(-8,1,prevBlock.keepMesh.position.z)
 		}else{
-			this.cube.position.set(0,1,-8)
+			this.cube.position.set(prevBlock.keepMesh.position.x,1,-8)
 		}
 		
 		scene.add(this.cube);
@@ -34,7 +34,6 @@ class Block{
 		var endPos = { pos : 8};
 
 		let speed = 500 + 2500 * Math.pow(0.98,id);
-		console.log(speed)
 
 		this.tween = new TWEEN.Tween(currentPos).to(endPos, speed)
 		.easing(TWEEN.Easing.Sinusoidal.InOut)
@@ -61,7 +60,43 @@ class Block{
 		this.cube.position.y = -stoppedBlocks.position.y+1
 		this.cube.position.z = Math.round(this.cube.position.z*4)/4
 		this.cube.position.x = Math.round(this.cube.position.x*4)/4
-		stoppedBlocks.add(this.cube);
+
+		if(this.axis == "x"){
+			let remove = prevBlock.cube.position.x - this.cube.position.x
+			let keep = prevBlock.x - Math.abs(remove)
+
+			if(keep > 0){
+				let geom = new THREE.BoxGeometry(keep,1,this.z);
+				let mat = new THREE.MeshToonMaterial({color:this.color, flatShading: true})
+				this.keepMesh = new THREE.Mesh(geom, mat);
+				this.keepMesh.position.y = this.cube.position.y
+				this.keepMesh.position.z = prevBlock.keepMesh.position.z
+				this.keepMesh.position.x = prevBlock.keepMesh.position.x - remove/2
+
+				scene.remove(this.cube)
+				stoppedBlocks.add(this.keepMesh);
+				this.x = keep;
+			}
+			
+		}else{
+			let remove = prevBlock.cube.position.z - this.cube.position.z
+			let keep = prevBlock.z - Math.abs(remove)
+
+			if(keep > 0){
+				let geom = new THREE.BoxGeometry(this.x,1,keep);
+				let mat = new THREE.MeshToonMaterial({color:this.color, flatShading: true})
+				this.keepMesh = new THREE.Mesh(geom, mat);
+				this.keepMesh.position.y = this.cube.position.y
+				this.keepMesh.position.z = prevBlock.keepMesh.position.z - remove/2
+				this.keepMesh.position.x = prevBlock.keepMesh.position.x
+				scene.remove(this.cube)
+				stoppedBlocks.add(this.keepMesh);
+				this.z = keep;
+			}
+
+		}
+
+		prevBlock = this
 	}
 }
 

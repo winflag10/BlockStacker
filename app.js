@@ -21,15 +21,17 @@ light.position.set( 0, 499, 0 );
 scene.add( light );
 
 var stoppedBlocks = new THREE.Group();
-var currentBlock = null;
-var prevBlock = null;
-var id = 1;
 
 var geom = new THREE.BoxGeometry(5,1,5);
 var mat = new THREE.MeshToonMaterial({color:0x222736, flatShading: true})
 var cube = new THREE.Mesh(geom, mat);
 stoppedBlocks.add(cube);
 scene.add(stoppedBlocks);
+
+
+var currentBlock = null;
+var prevBlock = {cube:cube,x:5,z:5,keepMesh:cube};
+var id = 1;
 
 document.onkeydown = function(e){
 	if(e.code == "Space"){
@@ -44,7 +46,6 @@ document.onmousedown = function(e){
 }
 
 function onactive(){
-	let block = new Block(id,5,5);
 	if(currentBlock != null){
 
 		currentBlock.stop()
@@ -56,13 +57,12 @@ function onactive(){
 		.onUpdate(function(){stoppedBlocks.position.y = stoppedBlocksPos.y;})
 		.easing(TWEEN.Easing.Quadratic.Out);
 		stoppedBlocksTween.start();
-
-		prevBlock = currentBlock;
 	}else{
 		
 	}
+	let block = new Block(id,prevBlock.x,prevBlock.z);
 	currentBlock = block
-	document.getElementById("title").innerHTML = id
+	document.getElementById("title").innerHTML = id-1
 	id++;
 }
 
