@@ -76,8 +76,10 @@ class Block{
 				scene.remove(this.cube)
 				stoppedBlocks.add(this.keepMesh);
 				this.x = keep;
+				prevBlock = this
 			}else{
-				console.log("You Lose")
+				gamerunning = false;
+				scene.remove(this.cube)
 			}
 			
 		}else{
@@ -94,13 +96,13 @@ class Block{
 				scene.remove(this.cube)
 				stoppedBlocks.add(this.keepMesh);
 				this.z = keep;
+				prevBlock = this
 			}else{
-				console.log("You Lose")
+				gamerunning = false;
+				scene.remove(this.cube)
 			}
 
 		}
-
-		prevBlock = this
 	}
 }
 

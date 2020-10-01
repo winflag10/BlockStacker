@@ -54,22 +54,45 @@ function onactive(){
 
 		currentBlock.stop()
 
-		let stoppedBlocksPos = {y:stoppedBlocks.position.y};
-		let stoppedBlocksEndPos = {y:stoppedBlocks.position.y-1};
-		let stoppedBlocksTween = new TWEEN.Tween(stoppedBlocksPos)
-		.to(stoppedBlocksEndPos, 200)
-		.onUpdate(function(){stoppedBlocks.position.y = stoppedBlocksPos.y;})
-		.easing(TWEEN.Easing.Quadratic.Out);
-		stoppedBlocksTween.start();
+		if(gamerunning){
+			let stoppedBlocksPos = {y:stoppedBlocks.position.y};
+			let stoppedBlocksEndPos = {y:stoppedBlocks.position.y-1};
+			let stoppedBlocksTween = new TWEEN.Tween(stoppedBlocksPos)
+			.to(stoppedBlocksEndPos, 200)
+			.onUpdate(function(){stoppedBlocks.position.y = stoppedBlocksPos.y;})
+			.easing(TWEEN.Easing.Quadratic.Out);
+			stoppedBlocksTween.start();
+		}
 	}else{
-		
+		gamerunning = true;
 	}
-	let block = new Block(id,prevBlock.x,prevBlock.z);
-	currentBlock = block
-	document.getElementById("title").innerHTML = id-1
-	id++;
+
+	if(gamerunning){
+		let block = new Block(id,prevBlock.x,prevBlock.z);
+		currentBlock = block
+		document.getElementById("score").innerHTML = id-1
+		id++;
+	}else{
+		document.getElementById("Score-Container").style.opacity = 1;
+		document.getElementById("Menu").style.opacity = 0;
+		document.getElementById("Retry").style.display = "block";
+	}
 }
 
+
+function retry(){
+	document.getElementById("Score-Container").style.opacity = 0;
+	document.getElementById("Menu").style.opacity = 1;
+	document.getElementById("Retry").style.display = "none";
+	currentBlock = null;
+	prevBlock = {cube:cube,x:5,z:5,keepMesh:cube};
+	id = 1;
+	gamerunning = false;
+	while(stoppedBlocks.children.length > 1){
+		stoppedBlocks.remove(stoppedBlocks.children[1])
+	}
+	stoppedBlocks.position.set(0,0,0)
+}
 
 
 

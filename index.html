@@ -21,7 +21,7 @@
 			   	-ms-user-select: none; /* Internet Explorer/Edge */
 			}
 
-			#container{
+			.container{
 				margin-top: 50px;
 				position: absolute;
 				width: 100%;
@@ -39,12 +39,41 @@
 				background: none; 
 				border: 2px #333344 solid;
 			}
+
+			#title{
+				transition-duration: 200ms;
+			}
+
+			#HighScore{
+				transition-duration: 200ms;
+			}
+
+			#Score-Container{
+				opacity: 0;
+				transition-duration: 200ms;
+			}
+
+			#YouLose{
+				margin:0;
+			}
+
+			#Retry{
+				display: none;
+				cursor: pointer;
+			}
+
 		</style>
 	</head>
 	<body id="body">
-		<div id="container">
+		<div class="container" id="Menu">
 			<h1 id="title">Block Stacker</h1>
+			<h3 id="HighScore">High Score: 0</h3>
 			<!-- <button id="play-btn">Play</button> -->
+		</div>
+		<div class="container" id="Score-Container">
+			<h1 id="score">0</h1>
+			<h3 id="YouLose">Game Over!</h3>
+			<h3 id="Retry" onclick="retry()">Retry</h3>
 		</div>
 		<script src="lib/three.js"></script>
 		<script src="lib/tween.js"></script>
