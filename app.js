@@ -45,10 +45,6 @@ document.onmousedown = function(e){
 	}
 }
 
-document.ontouchstart = function(e){
-	onactive()
-}
-
 function onactive(){
 	if(currentBlock != null){
 
