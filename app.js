@@ -28,10 +28,10 @@ var cube = new THREE.Mesh(geom, mat);
 stoppedBlocks.add(cube);
 scene.add(stoppedBlocks);
 
-
 var currentBlock = null;
 var prevBlock = {cube:cube,x:5,z:5,keepMesh:cube};
 var id = 1;
+var gamerunning = false;
 
 document.onkeydown = function(e){
 	if(e.code == "Space"){
@@ -43,6 +43,10 @@ document.onmousedown = function(e){
 	if(e.which == 1){// LEFT CLICK
 		onactive()
 	}
+}
+
+document.ontouchstart = function(e){
+	onactive()
 }
 
 function onactive(){

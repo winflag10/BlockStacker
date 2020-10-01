@@ -76,6 +76,8 @@ class Block{
 				scene.remove(this.cube)
 				stoppedBlocks.add(this.keepMesh);
 				this.x = keep;
+			}else{
+				console.log("You Lose")
 			}
 			
 		}else{
@@ -92,6 +94,8 @@ class Block{
 				scene.remove(this.cube)
 				stoppedBlocks.add(this.keepMesh);
 				this.z = keep;
+			}else{
+				console.log("You Lose")
 			}
 
 		}
