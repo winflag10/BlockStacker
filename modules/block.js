@@ -78,8 +78,7 @@ class Block{
 				this.x = keep;
 				prevBlock = this
 			}else{
-				gamerunning = false;
-				scene.remove(this.cube)
+				this.endGame()
 			}
 			
 		}else{
@@ -98,10 +97,24 @@ class Block{
 				this.z = keep;
 				prevBlock = this
 			}else{
-				gamerunning = false;
-				scene.remove(this.cube)
+				this.endGame()
 			}
 
+		}
+	}
+
+	endGame(){
+		gamerunning = false;
+		scene.remove(this.cube)
+
+		let prevHighScore = document.getElementById("HighScore").innerHTML.split(" ")
+		prevHighScore = parseInt(prevHighScore[prevHighScore.length-1])
+
+		let newScore = parseInt(document.getElementById("score").innerHTML)
+
+		if(newScore > prevHighScore){
+			localStorage.setItem("highScore",newScore.toString())
+			document.getElementById("HighScore").innerHTML = "High Score: " + newScore.toString()
 		}
 	}
 }

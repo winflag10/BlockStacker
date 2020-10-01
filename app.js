@@ -45,6 +45,15 @@ document.onmousedown = function(e){
 	}
 }
 
+function loadHighScore(){
+	if (localStorage.getItem("highScore") === null) {
+		localStorage.setItem("highScore",0)
+		document.getElementById("HighScore").innerHTML = "High Score: 0"
+	}else{
+		document.getElementById("HighScore").innerHTML = "High Score: " + localStorage.getItem("highScore")
+	}
+}
+
 function onactive(){
 	if(currentBlock != null){
 
