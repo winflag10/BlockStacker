@@ -44,7 +44,7 @@ document.onmousedown = function(e){
 }
 
 function onactive(){
-	let block = new Block(id);
+	let block = new Block(id,5,5);
 	if(currentBlock != null){
 
 		currentBlock.stop()

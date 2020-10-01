@@ -33,7 +33,8 @@ class Block{
 		var currentPos = { pos : -8};
 		var endPos = { pos : 8};
 
-		let speed = 2000 * Math.pow(0.98,id) * 2;
+		let speed = 500 + 2500 * Math.pow(0.98,id);
+		console.log(speed)
 
 		this.tween = new TWEEN.Tween(currentPos).to(endPos, speed)
 		.easing(TWEEN.Easing.Sinusoidal.InOut)
